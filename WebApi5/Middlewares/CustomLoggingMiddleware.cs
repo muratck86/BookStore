@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace WebApi5.Middlewares
 {
-    public class CustomExceptionMiddleware
+    public class CustomLoggingMiddleware
     {
         private readonly RequestDelegate _next;
-        public CustomExceptionMiddleware(RequestDelegate next)
+        public CustomLoggingMiddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -27,11 +27,11 @@ namespace WebApi5.Middlewares
         }
     }
 
-    public static class CustomExceptionMiddlewareExtension
+    public static class CustomLoggingMiddlewareExtension
     {
-        public static IApplicationBuilder UseCustomExceptionMiddle(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseCustomLoggingMiddle(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<CustomExceptionMiddleware>();
+            return builder.UseMiddleware<CustomLoggingMiddleware>();
         }
     }
 }

@@ -57,7 +57,7 @@ namespace WebApi5
 
             app.UseAuthorization();
 
-            app.UseCustomExceptionMiddle();
+            app.UseCustomLoggingMiddle();
 
             app.UseEndpoints(endpoints =>
             {
