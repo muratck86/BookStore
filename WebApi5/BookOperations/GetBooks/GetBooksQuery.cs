@@ -21,6 +21,7 @@ namespace WebApi5.BookOperations.GetBooks
             {
                 vm.Add(new BooksViewModel()
                 {
+                    Id = book.Id,
                     Title = book.Title,
                     Genre = ((GenreEnum)book.GenreId).ToString(),
                     PageCount = book.PageCount,
@@ -34,6 +35,7 @@ namespace WebApi5.BookOperations.GetBooks
 
     public class BooksViewModel
     {
+        public int Id {get; set;}
         public string Title { get; set; }
         public int PageCount { get; set; }
         public string PublishDate { get; set; }

@@ -1,22 +1,22 @@
 using System;
 using System.Linq;
 using WebApi5.DbOperations;
-using System.Collections.Generic;
 using WebApi5.Common;
 
-namespace WebApi5.BookOperations.GetBookById
+namespace WebApi5.BookOperations.GetBookDetail
 {
-    public class GetBookByIdQuery
+    public class GetBookDetailQuery
     {
         private readonly BookStoreDbContext _dbContext;
-        public GetBookByIdQuery(BookStoreDbContext context)
+        public int BookId;
+        public GetBookDetailQuery(BookStoreDbContext context)
         {
             _dbContext = context;
         }
 
-        public BookByIdViewModel Handle(int Id)
+        public BookByIdViewModel Handle()
         {
-            var book = _dbContext.Books.Where(book => book.Id == Id).SingleOrDefault();
+            var book = _dbContext.Books.Where(book => book.Id == BookId).SingleOrDefault();
             if (book == null)
                 throw new NullReferenceException("Kitap bulunamadı");
             BookByIdViewModel result = new BookByIdViewModel();

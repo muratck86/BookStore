@@ -9,24 +9,26 @@ namespace WebApi5.BookOperations.UpdateBook
     public class UpdateBookCommand
     {
         private readonly BookStoreDbContext _dbContext;
+        public UpdateBookModel UpdateModel;
+        public int BookId;
         public UpdateBookCommand(BookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public void Handle(UpdateBookModel model, int Id)
+        public void Handle()
         {
-            var book = _dbContext.Books.SingleOrDefault(x => x.Id == Id);
+            var book = _dbContext.Books.SingleOrDefault(x => x.Id == BookId);
             if (book == null)
                 throw new NullReferenceException("Kitap bulunamadı");
-            if (model.Title != null)
-                book.Title = model.Title;
-            if (model.PageCount != 0)
-                book.PageCount = model.PageCount;
+            if (UpdateModel.Title != null)
+                book.Title = UpdateModel.Title;
+            if (UpdateModel.PageCount != 0)
+                book.PageCount = UpdateModel.PageCount;
             if (book.PublishDate != null)
-                book.PublishDate = model.PublishDate;
+                book.PublishDate = UpdateModel.PublishDate;
             if (book.GenreId != 0)
-                book.GenreId = model.GenreId;
+                book.GenreId = UpdateModel.GenreId;
 
             _dbContext.SaveChanges();
         }

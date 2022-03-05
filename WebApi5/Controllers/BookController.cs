@@ -1,14 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
-using System.Linq;
 using WebApi5.DbOperations;
 using WebApi5.BookOperations.GetBooks;
 using WebApi5.BookOperations.CreateBook;
-using WebApi5.BookOperations.GetBookById;
+using WebApi5.BookOperations.GetBookDetail;
 using WebApi5.BookOperations.UpdateBook;
-
-
+using WebApi5.BookOperations.DeleteBook;
 
 namespace WebApi5.Controllers 
 {
@@ -34,10 +32,11 @@ namespace WebApi5.Controllers
         [HttpGet("{Id}")]
         public IActionResult GetById(int Id) 
         {
-            GetBookByIdQuery query = new GetBookByIdQuery(_context);
+            GetBookDetailQuery query = new GetBookDetailQuery(_context);
+            query.BookId = Id;
             try
             {
-                var result = query.Handle(Id);
+                var result = query.Handle();
                 return Ok(result);
             }
             catch (NullReferenceException ex)
@@ -76,7 +75,9 @@ namespace WebApi5.Controllers
             UpdateBookCommand command = new UpdateBookCommand(_context);
             try
             {
-                command.Handle(updatedBook, id);
+                command.UpdateModel = updatedBook;
+                command.BookId = id;
+                command.Handle();
                 return Ok();
             }
             catch (NullReferenceException ex)
@@ -89,14 +90,17 @@ namespace WebApi5.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
-            var book = _context.Books.SingleOrDefault<Book>(x => x.Id == id);
-            if (book is not null)
+            DeleteBookCommand command = new DeleteBookCommand(_context);
+            command.BookId = id;
+            try
             {
-                _context.Books.Remove(book);
-                _context.SaveChanges();
+                command.Handle();
                 return Ok();
             }
-            return BadRequest();
+            catch (NullReferenceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
