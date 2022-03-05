@@ -29,3 +29,5 @@ C:\Users\kurtm\OneDrive - Akdeniz Üniversitesi\Computer Sciences Studies\Patika
 C:\Users\kurtm\OneDrive - Akdeniz Üniversitesi\Computer Sciences Studies\Patika-.NET Core modül\pratikler\BookStore\WebApi5\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\kurtm\OneDrive - Akdeniz Üniversitesi\Computer Sciences Studies\Patika-.NET Core modül\pratikler\BookStore\WebApi5\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\kurtm\OneDrive - Akdeniz Üniversitesi\Computer Sciences Studies\Patika-.NET Core modül\pratikler\BookStore\WebApi5\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\kurtm\OneDrive - Akdeniz Üniversitesi\Computer Sciences Studies\Patika-.NET Core modül\pratikler\BookStore\WebApi5\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\kurtm\OneDrive - Akdeniz Üniversitesi\Computer Sciences Studies\Patika-.NET Core modül\pratikler\BookStore\WebApi5\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

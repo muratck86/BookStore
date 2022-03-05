@@ -3,6 +3,7 @@ using System.Linq;
 using WebApi5.DbOperations;
 using System.Collections.Generic;
 using WebApi5.Common;
+using AutoMapper;
 
 namespace WebApi5.BookOperations.UpdateBook
 {
@@ -21,6 +22,7 @@ namespace WebApi5.BookOperations.UpdateBook
             var book = _dbContext.Books.SingleOrDefault(x => x.Id == BookId);
             if (book == null)
                 throw new NullReferenceException("Kitap bulunamadı");
+                
             if (UpdateModel.Title != null)
                 book.Title = UpdateModel.Title;
             if (UpdateModel.PageCount != 0)
