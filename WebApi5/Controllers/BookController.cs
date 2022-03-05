@@ -5,6 +5,10 @@ using System.Linq;
 using WebApi5.DbOperations;
 using WebApi5.BookOperations.GetBooks;
 using WebApi5.BookOperations.CreateBook;
+using WebApi5.BookOperations.GetBookById;
+using WebApi5.BookOperations.UpdateBook;
+
+
 
 namespace WebApi5.Controllers 
 {
@@ -23,15 +27,23 @@ namespace WebApi5.Controllers
         {
             GetBooksQuery query = new GetBooksQuery(_context);
             var result = query.Handle();
-            
+
             return Ok(result);
         }
 
         [HttpGet("{Id}")]
-        public Book GetById(int Id) 
+        public IActionResult GetById(int Id) 
         {
-            var book = _context.Books.Where(book => book.Id == Id).SingleOrDefault();
-            return book;
+            GetBookByIdQuery query = new GetBookByIdQuery(_context);
+            try
+            {
+                var result = query.Handle(Id);
+                return Ok(result);
+            }
+            catch (NullReferenceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // [HttpGet]
@@ -59,21 +71,18 @@ namespace WebApi5.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] Book updatedBook)
+        public IActionResult UpdateBook(int id, [FromBody] UpdateBookModel updatedBook)
         {
-            var book = _context.Books.SingleOrDefault<Book>(x => x.Id == updatedBook.Id);
-            if(book is null)
+            UpdateBookCommand command = new UpdateBookCommand(_context);
+            try
             {
-                return BadRequest();
+                command.Handle(updatedBook, id);
+                return Ok();
             }
-            book.GenreId = updatedBook.GenreId != default ? updatedBook.GenreId : book.GenreId;
-            book.PageCount = updatedBook.PageCount != default ? updatedBook.PageCount : book.PageCount;
-            book.PublishDate = updatedBook.PublishDate != default ? updatedBook.PublishDate : book.PublishDate;
-            book.Title = updatedBook.Title != default ? updatedBook.Title : book.Title;
-
-            _context.SaveChanges();
-
-            return Ok();
+            catch (NullReferenceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
         }
 
