@@ -7,6 +7,8 @@ using WebApi5.BookOperations.GetBookDetail;
 using WebApi5.BookOperations.UpdateBook;
 using WebApi5.BookOperations.DeleteBook;
 using AutoMapper;
+using FluentValidation.Results;
+using FluentValidation;
 
 namespace WebApi5.Controllers 
 {
@@ -38,10 +40,12 @@ namespace WebApi5.Controllers
             query.BookId = Id;
             try
             {
+                GetBookDetailQueryValidator validator = new GetBookDetailQueryValidator();
+                validator.ValidateAndThrow(query);
                 var result = query.Handle();
                 return Ok(result);
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -54,9 +58,18 @@ namespace WebApi5.Controllers
             try
             {
                 command.Model = newBook;
-                command.Handle();
+                CreateBookCommandValidator validator = new CreateBookCommandValidator();
+                validator.ValidateAndThrow(command);
+                // ValidationResult result = validator.Validate(command);
+                // if (!result.IsValid)
+                // {
+                //     foreach(var item in result.Errors)
+                //         Console.WriteLine("Property: " + item.PropertyName + " Error Message: " + item.ErrorMessage);
+                // }
+                // else
+                    command.Handle();
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -71,12 +84,14 @@ namespace WebApi5.Controllers
             UpdateBookCommand command = new UpdateBookCommand(_context);
             try
             {
+                UpdateBookCommandValidator validator = new UpdateBookCommandValidator();
                 command.UpdateModel = updatedBook;
                 command.BookId = id;
+                validator.ValidateAndThrow(command);
                 command.Handle();
                 return Ok();
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -90,10 +105,12 @@ namespace WebApi5.Controllers
             command.BookId = id;
             try
             {
+                DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
+                validator.ValidateAndThrow(command);
                 command.Handle();
                 return Ok();
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

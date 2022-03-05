@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebApi5.Common;
 
 
 namespace WebApi5 
@@ -9,7 +10,7 @@ namespace WebApi5
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Title { get; set; }
-        public int GenreId { get; set; }
+        public GenreEnum GenreId { get; set; }
         public int PageCount { get; set; }
         public DateTime PublishDate { get; set; }
 
