@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using WebApi5.DbOperations;
 using System.Reflection;
 using WebApi5.Middlewares;
+using WebApi5.Services;
 
 namespace WebApi5
 {
@@ -39,6 +40,7 @@ namespace WebApi5
 
             services.AddDbContext<BookStoreDbContext>(options => options.UseInMemoryDatabase(databaseName:"BookStoreDb"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddSingleton<ILoggerService, ConsoleLogger>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
