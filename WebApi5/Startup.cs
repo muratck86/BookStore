@@ -40,7 +40,7 @@ namespace WebApi5
 
             services.AddDbContext<BookStoreDbContext>(options => options.UseInMemoryDatabase(databaseName:"BookStoreDb"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddSingleton<ILoggerService, ConsoleLogger>();
+            services.AddSingleton<ILoggerService, DbLogger>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
