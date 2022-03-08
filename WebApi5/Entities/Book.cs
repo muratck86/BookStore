@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using WebApi5.Common;
 
 
-namespace WebApi5 
+namespace WebApi5.Entities 
 {
     public class Book
     {

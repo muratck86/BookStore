@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System;
 using WebApi5.Common;
+using WebApi5.Entities;
 
 namespace WebApi5.DbOperations 
 {
@@ -15,6 +16,18 @@ namespace WebApi5.DbOperations
             {
                 if (context.Books.Any())
                     return;
+
+                context.Genres.AddRange(
+                    new Genre {
+                        Name = "Personal Growth"
+                    },
+                    new Genre {
+                        Name = "Science-Fiction"
+                    },
+                    new Genre {
+                        Name = "Novel"
+                    }
+                );
                 
                 context.Books.AddRange(
                     new Book {

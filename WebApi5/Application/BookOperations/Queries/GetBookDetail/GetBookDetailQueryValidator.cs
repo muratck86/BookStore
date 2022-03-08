@@ -1,7 +1,7 @@
 using System;
 using FluentValidation;
 
-namespace WebApi5.BookOperations.GetBookDetail
+namespace WebApi5.Application.BookOperations.Queries.GetBookDetail
 {
     public class GetBookDetailQueryValidator : AbstractValidator<GetBookDetailQuery>
     {

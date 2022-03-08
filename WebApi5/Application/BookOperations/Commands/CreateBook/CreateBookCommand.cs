@@ -1,11 +1,11 @@
 using System;
 using System.Linq;
 using WebApi5.DbOperations;
-using System.Collections.Generic;
 using WebApi5.Common;
 using AutoMapper;
+using WebApi5.Entities;
 
-namespace WebApi5.BookOperations.CreateBook
+namespace WebApi5.Application.BookOperations.Commands.CreateBook
 {
     public class CreateBookCommand
     {

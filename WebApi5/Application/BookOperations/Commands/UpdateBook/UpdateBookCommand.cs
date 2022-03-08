@@ -1,11 +1,10 @@
 using System;
 using System.Linq;
 using WebApi5.DbOperations;
-using System.Collections.Generic;
 using WebApi5.Common;
 using AutoMapper;
 
-namespace WebApi5.BookOperations.UpdateBook
+namespace WebApi5.Application.BookOperations.Commands.UpdateBook
 {
     public class UpdateBookCommand
     {

@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
 using WebApi5.DbOperations;
-using WebApi5.BookOperations.GetBooks;
-using WebApi5.BookOperations.CreateBook;
-using WebApi5.BookOperations.GetBookDetail;
-using WebApi5.BookOperations.UpdateBook;
-using WebApi5.BookOperations.DeleteBook;
+using WebApi5.Application.BookOperations.Queries.GetBooks;
+using WebApi5.Application.BookOperations.Commands.CreateBook;
+using WebApi5.Application.BookOperations.Queries.GetBookDetail;
+using WebApi5.Application.BookOperations.Commands.UpdateBook;
+using WebApi5.Application.BookOperations.Commands.DeleteBook;
 using AutoMapper;
 using FluentValidation;
 

@@ -2,7 +2,7 @@ using System;
 using FluentValidation;
 using WebApi5.Common;
 
-namespace WebApi5.BookOperations.CreateBook
+namespace WebApi5.Application.BookOperations.Commands.CreateBook
 {
     public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
     {
