@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using WebApi5.Common;
 using AutoMapper;
 using WebApi5.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi5.Application.BookOperations.Queries.GetBooks
 {
@@ -19,25 +20,9 @@ namespace WebApi5.Application.BookOperations.Queries.GetBooks
 
         public List<BooksViewModel> Handle()
         {
-            var bookList = _dbContext.Books.OrderBy(x => x.Id).ToList<Book>();
+            var bookList = _dbContext.Books.Include(x => x.Genre).OrderBy(x => x.Id).ToList<Book>();
 
-            //Alt 3
-            List<BooksViewModel> vm = _mapper.Map<List<BooksViewModel>>(bookList); //new List<BooksViewModel>();
-            // Alt 2
-            // foreach (var book in bookList)
-            // {
-            //     // vm.Add(_mapper.Map<BooksViewModel>(book));
-             
-            //     //Alt 1
-            //     // vm.Add(new BooksViewModel()
-            //     // {
-            //     //     Id = book.Id,
-            //     //     Title = book.Title,
-            //     //     Genre = ((GenreEnum)book.GenreId).ToString(),
-            //     //     PageCount = book.PageCount,
-            //     //     PublishDate = book.PublishDate.Date.ToString("dd/MM/yyyy")
-            //     // });
-            // }
+            List<BooksViewModel> vm = _mapper.Map<List<BooksViewModel>>(bookList); 
             return vm;
         }
         

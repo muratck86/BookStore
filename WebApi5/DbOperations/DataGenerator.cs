@@ -33,21 +33,21 @@ namespace WebApi5.DbOperations
                     new Book {
                         // Id = 1,
                         Title = "Lean Startup",
-                        GenreId = GenreEnum.PersonalGrowth, // Personal Growth
+                        GenreId = 1, // Personal Growth
                         PageCount = 200,
                         PublishDate = new DateTime(2001, 02, 06)
                     },
                     new Book {
                         // Id = 2,
                         Title = "Herland",
-                        GenreId = GenreEnum.ScienceFiction, // Science-Fiction
+                        GenreId = 2, // Science-Fiction
                         PageCount = 250,
                         PublishDate = new DateTime(2010, 05, 23)
                     },
                     new Book {
                         // Id = 3,
                         Title = "Dune",
-                        GenreId = GenreEnum.ScienceFiction, // Science-Fiction
+                        GenreId = 2, // Science-Fiction
                         PageCount = 540,
                         PublishDate = new DateTime(2001, 12, 21)
                     }

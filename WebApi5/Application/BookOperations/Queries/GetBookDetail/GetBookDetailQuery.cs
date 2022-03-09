@@ -3,6 +3,7 @@ using System.Linq;
 using WebApi5.DbOperations;
 using WebApi5.Common;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi5.Application.BookOperations.Queries.GetBookDetail
 {
@@ -19,7 +20,7 @@ namespace WebApi5.Application.BookOperations.Queries.GetBookDetail
 
         public BookDetailViewModel Handle()
         {
-            var book = _dbContext.Books.Where(book => book.Id == BookId).SingleOrDefault();
+            var book = _dbContext.Books.Include(x => x.Genre).Where(book => book.Id == BookId).SingleOrDefault();
             if (book == null)
                 throw new NullReferenceException("Kitap bulunamadı");
             BookDetailViewModel result = _mapper.Map<BookDetailViewModel>(book); //new BookDetailViewModel();
