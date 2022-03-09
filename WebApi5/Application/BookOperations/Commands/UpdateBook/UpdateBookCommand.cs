@@ -22,14 +22,10 @@ namespace WebApi5.Application.BookOperations.Commands.UpdateBook
             if (book == null)
                 throw new NullReferenceException("Kitap bulunamadı");
                 
-            if (UpdateModel.Title != null)
-                book.Title = UpdateModel.Title;
-            if (UpdateModel.PageCount != 0)
-                book.PageCount = UpdateModel.PageCount;
-            if (book.PublishDate != null)
-                book.PublishDate = UpdateModel.PublishDate;
-            if (book.GenreId != 0)
-                book.GenreId = UpdateModel.GenreId;
+            book.Title = UpdateModel.Title;
+            book.PageCount = UpdateModel.PageCount;
+            book.PublishDate = UpdateModel.PublishDate;
+            book.GenreId = UpdateModel.GenreId;
 
             _dbContext.SaveChanges();
         }

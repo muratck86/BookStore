@@ -23,11 +23,7 @@ namespace WebApi5.Application.BookOperations.Queries.GetBookDetail
             var book = _dbContext.Books.Include(x => x.Genre).Where(book => book.Id == BookId).SingleOrDefault();
             if (book == null)
                 throw new NullReferenceException("Kitap bulunamadı");
-            BookDetailViewModel result = _mapper.Map<BookDetailViewModel>(book); //new BookDetailViewModel();
-            // result.Title = book.Title;
-            // result.PageCount = book.PageCount;
-            // result.Genre = ((GenreEnum)book.GenreId).ToString();
-            // result.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyyy");
+            BookDetailViewModel result = _mapper.Map<BookDetailViewModel>(book); 
             return result;
         }
 

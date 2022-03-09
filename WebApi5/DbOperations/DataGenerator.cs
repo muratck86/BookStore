@@ -17,6 +17,27 @@ namespace WebApi5.DbOperations
                 if (context.Books.Any())
                     return;
 
+                context.Authors.AddRange(
+                    new Author 
+                    {
+                        Name = "Eric",
+                        LastName = "Ries",
+                        BirthDate = new DateTime(1978, 9, 22)
+                    },
+                    new Author
+                    {
+                        Name = "Charlotte Perkins",
+                        LastName = "Gilman",
+                        BirthDate = new DateTime(1860, 7, 3)
+                    },
+                    new Author
+                    {
+                        Name = "Frank",
+                        LastName = "Herbert",
+                        BirthDate = new DateTime(1920, 10, 8)                        
+                    }
+                );
+
                 context.Genres.AddRange(
                     new Genre {
                         Name = "Personal Growth"

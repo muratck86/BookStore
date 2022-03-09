@@ -15,5 +15,8 @@ namespace WebApi5.Entities
         public int PageCount { get; set; }
         public DateTime PublishDate { get; set; }
 
+        public int AuthorId { get; set; }
+        public Author Author { get; set; }
+
     }
 }
