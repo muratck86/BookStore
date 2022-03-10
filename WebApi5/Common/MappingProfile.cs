@@ -41,6 +41,16 @@ namespace WebApi5.Common
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.Name + " " + src.LastName))
                 .ForMember(dest => dest.BirthDate, 
                     opt => opt.MapFrom(src => src.BirthDate.ToString("dd/MM/yyy")));
+            
+            CreateMap<Book, BooksByAuthorViewModel>()
+                .ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name))
+                .ForMember(dest => dest.PublishDate, opt => 
+                    opt.MapFrom(src => src.PublishDate.ToString("dd/MM/yyy")));
+
+            CreateMap<Book, BooksByGenreViewModel>()
+                .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author.Name + " " + src.Author.LastName))
+                .ForMember(dest => dest.PublishDate, opt => 
+                    opt.MapFrom(src => src.PublishDate.ToString("dd/MM/yyy")));                    
 
         }
     }

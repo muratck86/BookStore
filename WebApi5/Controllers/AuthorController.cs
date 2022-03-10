@@ -89,9 +89,22 @@ namespace WebApi5.Controllers
             DeleteAuthorCommandValidator validator = new DeleteAuthorCommandValidator();
             validator.ValidateAndThrow(command);
 
+            if(hasBooksCheck(id))
+                return BadRequest("Bu yazara ait kitap(lar) bulunmaktadır.");
             command.Handle();
             return Ok();
         }
 
+        private bool hasBooksCheck(int id)
+        {
+            GetBooksByAuthorQuery query = new GetBooksByAuthorQuery(_context, _mapper);
+            query.Id = id;
+
+            var result = query.Handle();
+
+            if (result.Count > 0)
+                return true;
+            return false;
+        }
     }
 }

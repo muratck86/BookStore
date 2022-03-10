@@ -84,9 +84,24 @@ namespace WebApi5.Controllers
 
             command.GenreId = Id;
             validator.ValidateAndThrow(command);
+
+            if(hasBooksCheck(Id))
+                return BadRequest("Bu türe ait kitap(lar) bulunmaktadır.");
             command.Handle();
             
             return Ok();
+        }
+
+        private bool hasBooksCheck(int id)
+        {
+            GetBooksByGenreQuery query = new GetBooksByGenreQuery(_context, _mapper);
+            query.Id = id;
+
+            var result = query.Handle();
+
+            if (result.Count > 0)
+                return true;
+            return false;
         }
     }
 }

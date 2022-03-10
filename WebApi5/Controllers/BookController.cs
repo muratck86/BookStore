@@ -7,6 +7,8 @@ using WebApi5.Application.BookOperations.Commands.UpdateBook;
 using WebApi5.Application.BookOperations.Commands.DeleteBook;
 using AutoMapper;
 using FluentValidation;
+using WebApi5.Application.GenreOperations.Queries.GetGenreDetail;
+using WebApi5.Application.AuthorOperations.Queries.GetAuthorDetail;
 
 namespace WebApi5.Controllers
 {
@@ -47,10 +49,13 @@ namespace WebApi5.Controllers
         public IActionResult AddBook([FromBody] CreateBookModel newBook)
         {
             CreateBookCommand command = new CreateBookCommand(_context, _mapper);
-
             command.Model = newBook;
+
             CreateBookCommandValidator validator = new CreateBookCommandValidator();
             validator.ValidateAndThrow(command);
+
+            checkGenreAndAuthor(newBook);
+
             command.Handle();
             return Ok();
         }
@@ -63,6 +68,8 @@ namespace WebApi5.Controllers
             command.UpdateModel = updatedBook;
             command.BookId = id;
             validator.ValidateAndThrow(command);
+
+            checkGenreAndAuthor(updatedBook);
             command.Handle();
             return Ok();
 
@@ -77,6 +84,36 @@ namespace WebApi5.Controllers
             validator.ValidateAndThrow(command);
             command.Handle();
             return Ok();
+        }
+
+        private void checkGenreAndAuthor(CreateBookModel book)
+        {
+            GetGenreDetailQuery genreQuery = new GetGenreDetailQuery(_context, _mapper);
+            genreQuery.GenreId = book.GenreId;
+            GetGenreDetailQueryValidator genreValidator = new GetGenreDetailQueryValidator();
+            genreValidator.ValidateAndThrow(genreQuery);
+            genreQuery.Handle();
+
+            GetAuthorDetailQuery authorQuery = new GetAuthorDetailQuery(_context, _mapper);
+            authorQuery.AuthorId = book.AuthorId;
+            GetAuthorDetailQueryValidator authorValidator = new GetAuthorDetailQueryValidator();
+            authorValidator.ValidateAndThrow(authorQuery);
+            authorQuery.Handle();
+        }
+
+        private void checkGenreAndAuthor(UpdateBookModel book)
+        {
+            GetGenreDetailQuery genreQuery = new GetGenreDetailQuery(_context, _mapper);
+            genreQuery.GenreId = book.GenreId;
+            GetGenreDetailQueryValidator genreValidator = new GetGenreDetailQueryValidator();
+            genreValidator.ValidateAndThrow(genreQuery);
+            genreQuery.Handle();
+
+            GetAuthorDetailQuery authorQuery = new GetAuthorDetailQuery(_context, _mapper);
+            authorQuery.AuthorId = book.AuthorId;
+            GetAuthorDetailQueryValidator authorValidator = new GetAuthorDetailQueryValidator();
+            authorValidator.ValidateAndThrow(authorQuery);
+            authorQuery.Handle();
         }
     }
 }
