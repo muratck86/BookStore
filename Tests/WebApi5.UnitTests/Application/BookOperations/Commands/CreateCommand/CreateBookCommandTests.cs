@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using AutoMapper;
 using FluentAssertions;
 using WebApi5.Application.BookOperations.Commands.CreateBook;
@@ -40,8 +41,34 @@ namespace WebApi5.UnitTests.Application.BookOperations.Commands.CreateBook
             //Act & Assert
             FluentActions
                 .Invoking(() => command.Handle())
-                .Should().Throw<InvalidOperationException>().And.Message.Should().Be("Kitap zaten mevcut");
-            //Assert
+                .Should().Throw<InvalidOperationException>().And.Message.Should().Be("Kitap zaten mevcut.");
+        }
+        [Fact]
+        public void WhenValidInputsAreGiven_Book_ShouldBeCreated()
+        {
+            var newBook = new CreateBookModel
+            {
+                Title = "Test new book",
+                AuthorId = 1,
+                GenreId = 1,
+                PageCount = 200,
+                PublishDate = new DateTime(2001,1,1)
+            };
+
+            CreateBookCommand command = new CreateBookCommand(_context, _mapper);
+            command.Model = newBook;
+
+            FluentActions.Invoking(() => command.Handle()).Invoke();
+
+            var book = _context.Books.SingleOrDefault(book => book.Title == newBook.Title);
+            book.Should().NotBeNull();
+            book.PageCount.Should().Be(newBook.PageCount);
+            book.PublishDate.Should().Be(newBook.PublishDate);
+            book.GenreId.Should().Be(newBook.GenreId);
+            book.AuthorId.Should().Be((newBook.AuthorId));
+
+
+
         }
 
     }
