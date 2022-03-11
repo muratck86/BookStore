@@ -1,10 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApi5.DbOperations;
-using WebApi5.Application.BookOperations.Queries.GetBooks;
-using WebApi5.Application.BookOperations.Commands.CreateBook;
-using WebApi5.Application.BookOperations.Queries.GetBookDetail;
-using WebApi5.Application.BookOperations.Commands.UpdateBook;
-using WebApi5.Application.BookOperations.Commands.DeleteBook;
 using AutoMapper;
 using FluentValidation;
 using WebApi5.Application.AuthorOperations.Queries.GetAuthors;
@@ -75,7 +70,7 @@ namespace WebApi5.Controllers
 
             command.AuthorId = id;
             command.UpdateModel = updateAuthor;
-            validator.Validate(command);
+            validator.ValidateAndThrow(command);
 
             command.Handle();
             return Ok();
@@ -84,27 +79,15 @@ namespace WebApi5.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteAuthor(int id)
         {
-            DeleteAuthorCommand command = new DeleteAuthorCommand(_context);
+            DeleteAuthorCommand command = new DeleteAuthorCommand(_context, _mapper);
             command.AuthorId = id;
             DeleteAuthorCommandValidator validator = new DeleteAuthorCommandValidator();
             validator.ValidateAndThrow(command);
 
-            if(hasBooksCheck(id))
-                return BadRequest("Bu yazara ait kitap(lar) bulunmaktadır.");
             command.Handle();
             return Ok();
         }
 
-        private bool hasBooksCheck(int id)
-        {
-            GetBooksByAuthorQuery query = new GetBooksByAuthorQuery(_context, _mapper);
-            query.Id = id;
 
-            var result = query.Handle();
-
-            if (result.Count > 0)
-                return true;
-            return false;
-        }
     }
 }

@@ -1,10 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApi5.DbOperations;
-using WebApi5.Application.BookOperations.Queries.GetBooks;
-using WebApi5.Application.BookOperations.Commands.CreateBook;
-using WebApi5.Application.BookOperations.Queries.GetBookDetail;
-using WebApi5.Application.BookOperations.Commands.UpdateBook;
-using WebApi5.Application.BookOperations.Commands.DeleteBook;
 using AutoMapper;
 using FluentValidation;
 using WebApi5.Application.GenreOperations.Queries.GetGenres;
@@ -79,29 +74,15 @@ namespace WebApi5.Controllers
         [HttpDelete("Id")]
                 public IActionResult DeleteGenre(int Id)
         {
-            DeleteGenreCommand command = new DeleteGenreCommand(_context);
+            DeleteGenreCommand command = new DeleteGenreCommand(_context, _mapper);
             DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
 
             command.GenreId = Id;
             validator.ValidateAndThrow(command);
 
-            if(hasBooksCheck(Id))
-                return BadRequest("Bu türe ait kitap(lar) bulunmaktadır.");
             command.Handle();
             
             return Ok();
-        }
-
-        private bool hasBooksCheck(int id)
-        {
-            GetBooksByGenreQuery query = new GetBooksByGenreQuery(_context, _mapper);
-            query.Id = id;
-
-            var result = query.Handle();
-
-            if (result.Count > 0)
-                return true;
-            return false;
         }
     }
 }

@@ -62,13 +62,13 @@ namespace WebApi5.UnitTests.Application.BookOperations.Commands.CreateBook
 
             var book = _context.Books.SingleOrDefault(book => book.Title == newBook.Title);
             book.Should().NotBeNull();
-            book.PageCount.Should().Be(newBook.PageCount);
-            book.PublishDate.Should().Be(newBook.PublishDate);
-            book.GenreId.Should().Be(newBook.GenreId);
-            book.AuthorId.Should().Be((newBook.AuthorId));
-
-
-
+            if (book is not null)
+            {
+                book.PageCount.Should().Be(newBook.PageCount);
+                book.PublishDate.Should().Be(newBook.PublishDate);
+                book.GenreId.Should().Be(newBook.GenreId);
+                book.AuthorId.Should().Be((newBook.AuthorId));
+            }
         }
 
     }

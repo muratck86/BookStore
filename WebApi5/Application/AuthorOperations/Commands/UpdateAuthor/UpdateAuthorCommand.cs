@@ -19,10 +19,13 @@ namespace WebApi5.Application.AuthorOperations.Commands.UpdateAuthor
             var author = _dbContext.Authors.SingleOrDefault(x => x.Id == AuthorId);
             if (author == null)
                 throw new NullReferenceException("Yazar bulunamadı");
-                
-            author.Name = UpdateModel.Name;
-            author.LastName = UpdateModel.LastName;
-            author.BirthDate = UpdateModel.BirthDate;
+            
+            if (!(UpdateModel.Name == null || string.Empty == UpdateModel.Name.Trim()))
+                author.Name = UpdateModel.Name.Trim();
+            if (!(UpdateModel.LastName == null || string.Empty == UpdateModel.LastName.Trim()))
+                author.LastName = UpdateModel.LastName.Trim();
+            if (UpdateModel.BirthDate != null && UpdateModel.BirthDate.Year > 1)
+                author.BirthDate = UpdateModel.BirthDate;
 
             _dbContext.SaveChanges();
         }
