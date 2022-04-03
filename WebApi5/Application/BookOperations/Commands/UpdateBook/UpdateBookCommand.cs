@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using WebApi5.DbOperations;
-using WebApi5.Common;
-using AutoMapper;
 
 namespace WebApi5.Application.BookOperations.Commands.UpdateBook
 {
@@ -22,10 +20,11 @@ namespace WebApi5.Application.BookOperations.Commands.UpdateBook
             if (book == null)
                 throw new NullReferenceException("Kitap bulunamadı");
                 
-            book.Title = UpdateModel.Title;
-            book.PageCount = UpdateModel.PageCount;
-            book.PublishDate = UpdateModel.PublishDate;
-            book.GenreId = UpdateModel.GenreId;
+            book.Title = UpdateModel.Title == null || string.Empty == UpdateModel.Title.Trim() ? book.Title : UpdateModel.Title.Trim();
+            book.PageCount = UpdateModel.PageCount > 0 ? UpdateModel.PageCount : book.PageCount;
+            book.GenreId = UpdateModel.GenreId > 0 ? UpdateModel.GenreId : book.GenreId;
+            book.PublishDate = UpdateModel.PublishDate != null ? UpdateModel.PublishDate : book.PublishDate;
+            book.AuthorId = UpdateModel.AuthorId > 0 ? UpdateModel.AuthorId : book.AuthorId;
 
             _dbContext.SaveChanges();
         }

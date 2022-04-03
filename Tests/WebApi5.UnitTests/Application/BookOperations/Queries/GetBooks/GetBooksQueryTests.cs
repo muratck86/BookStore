@@ -1,27 +1,27 @@
 using System.Linq;
 using AutoMapper;
 using FluentAssertions;
-using WebApi5.Application.AuthorOperations.Queries.GetAuthors;
+using WebApi5.Application.BookOperations.Queries.GetBooks;
 using WebApi5.DbOperations;
 using WebApi5.UnitTests.TestSetup;
 using Xunit;
 
-namespace WebApi5.UnitTests.Application.AuthorOperations.Queries.GetAuthors
+namespace WebApi5.UnitTests.Application.BookOperations.Queries.GetBooks
 {
-    public class GetAuthorsQueryTests : IClassFixture<CommonTestFixture>
+    public class GetBooksQueryTests : IClassFixture<CommonTestFixture>
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
-        private readonly GetAuthorsQuery _query;
-        public GetAuthorsQueryTests(CommonTestFixture testFixture)
+        private readonly GetBooksQuery _query;
+        public GetBooksQueryTests(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
             _mapper = testFixture.Mapper;
-            _query = new GetAuthorsQuery(_context, _mapper);
+            _query = new GetBooksQuery(_context, _mapper);
         }
         
         [Fact]
-        public void WhenCalled_ListOfAuthors_ShouldBeReturned()
+        public void WhenCalled_ListOfBooks_ShouldBeReturned()
         {
             //Arrange
             //act 

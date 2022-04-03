@@ -37,7 +37,7 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Commands.DeleteAuthor
         [Fact]
         public void WhenNonExistingAuthorIdIsGiven_Author_ShouldReturnError()
         {
-            _command.AuthorId = _maxId + 1;
+            _command.AuthorId = _maxId + 10000;
 
             FluentActions
                 .Invoking(() => _command.Handle())

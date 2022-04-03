@@ -12,10 +12,23 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Commands.UpdateAuthor
         UpdateAuthorCommandValidator validator = new UpdateAuthorCommandValidator();
 
         [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public void WhenIdLessThan1IsGiven_Validator_ShouldReturnError(int id)
+        {
+            //arrange
+            command.AuthorId = id;
+            command.UpdateModel = new UpdateAuthorModel();
+            //act
+            var result = validator.Validate(command);
+            //assert
+            result.Errors.Count.Should().Be(1);
+        }
+
+        [Theory]
         [InlineData(null,null)]
         [InlineData("NewName",null)]
         [InlineData(null,"NewName")]
-
         public void WhenNullNameOrLastNameIsGiven_Validator_ShouldNotReturnError(string name, string lastName)
         {
             //arrange

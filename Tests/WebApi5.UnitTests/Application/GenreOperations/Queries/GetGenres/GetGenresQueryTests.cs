@@ -1,27 +1,27 @@
 using System.Linq;
 using AutoMapper;
 using FluentAssertions;
-using WebApi5.Application.AuthorOperations.Queries.GetAuthors;
+using WebApi5.Application.GenreOperations.Queries.GetGenres;
 using WebApi5.DbOperations;
 using WebApi5.UnitTests.TestSetup;
 using Xunit;
 
-namespace WebApi5.UnitTests.Application.AuthorOperations.Queries.GetAuthors
+namespace WebApi5.UnitTests.Application.GenreOperations.Queries.GetGenres
 {
-    public class GetAuthorsQueryTests : IClassFixture<CommonTestFixture>
+    public class GetGenresQueryTests : IClassFixture<CommonTestFixture>
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
-        private readonly GetAuthorsQuery _query;
-        public GetAuthorsQueryTests(CommonTestFixture testFixture)
+        private readonly GetGenresQuery _query;
+        public GetGenresQueryTests(CommonTestFixture testFixture)
         {
             _context = testFixture.Context;
             _mapper = testFixture.Mapper;
-            _query = new GetAuthorsQuery(_context, _mapper);
+            _query = new GetGenresQuery(_context, _mapper);
         }
         
         [Fact]
-        public void WhenCalled_ListOfAuthors_ShouldBeReturned()
+        public void WhenCalled_ListOfGenres_ShouldBeReturned()
         {
             //Arrange
             //act 

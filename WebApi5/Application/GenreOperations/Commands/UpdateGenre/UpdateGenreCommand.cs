@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
-using AutoMapper;
 using WebApi5.DbOperations;
-using WebApi5.Entities;
 
 namespace WebApi5.Application.GenreOperations.Commands.UpdateGenre
 {
@@ -19,14 +17,11 @@ namespace WebApi5.Application.GenreOperations.Commands.UpdateGenre
         public void Handle()
         {
             var genre = _context.Genres.SingleOrDefault(x => x.Id == GenreId);
-            if(genre is null)
-                throw new InvalidOperationException("Kitap türü bulunamadı");
-            var isAny = _context.Genres.Any(x => x.Name.ToLower() == Model.Name.ToLower());
-            if(isAny)
-                throw new InvalidOperationException("Bu isimde bir tür zaten mevcut.");
+            if (genre == null)
+                throw new NullReferenceException("Tür bulunamadı");
             
-            genre.Name = string.IsNullOrEmpty(Model.Name.Trim()) ? genre.Name : Model.Name;
-            genre.IsActive = Model.IsActive;
+            if (!(Model.Name == null || string.Empty == Model.Name.Trim()))
+                genre.Name = Model.Name.Trim();
             _context.SaveChanges();
         }
     }

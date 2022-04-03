@@ -39,7 +39,7 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Commands.UpdateAuthor
             FluentActions.Invoking(() => _command.Handle()).Invoke();
 
             var authorUpdated = _context.Authors.SingleOrDefault(aut => aut.Id == testId);
-            authorUpdated.Name.Should().Be(authorToUpdate.Name);
+            authorUpdated?.Name.Should().Be(authorToUpdate?.Name);
         }
 
         [Theory]
@@ -57,7 +57,7 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Commands.UpdateAuthor
             FluentActions.Invoking(() => _command.Handle()).Invoke();
 
             var authorUpdated = _context.Authors.SingleOrDefault(aut => aut.Id == testId);
-            authorUpdated.LastName.Should().Be(authorToUpdate.LastName);
+            authorUpdated?.LastName.Should().Be(authorToUpdate?.LastName);
         }
         
         [Fact]
@@ -74,8 +74,8 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Commands.UpdateAuthor
             FluentActions.Invoking(() => _command.Handle()).Invoke();
 
             var authorUpdated = _context.Authors.SingleOrDefault(aut => aut.Id == testId);
-            authorUpdated.Name.Should().Be(authorWithNewInfo.Name);
-            authorUpdated.LastName.Should().Be(authorWithNewInfo.LastName);            
+            authorUpdated?.Name.Should().Be(authorWithNewInfo.Name);
+            authorUpdated?.LastName.Should().Be(authorWithNewInfo.LastName);            
         }
 
         [Theory]
@@ -90,7 +90,7 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Commands.UpdateAuthor
             FluentActions.Invoking(() => _command.Handle()).Invoke();
 
             var authorUpdated = _context.Authors.SingleOrDefault(aut => aut.Id == testId);
-            authorUpdated.BirthDate.Should().Be(authorToUpdate.BirthDate);
+            authorUpdated?.BirthDate.Should().Be(authorToUpdate?.BirthDate);
         }
 
         [Fact]
@@ -105,7 +105,7 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Commands.UpdateAuthor
             FluentActions.Invoking(() => _command.Handle()).Invoke();
 
             var authorUpdated = _context.Authors.SingleOrDefault(aut => aut.Id == testId);
-            authorUpdated.BirthDate.Should().Be(authorWithNewInfo.BirthDate);
+            authorUpdated?.BirthDate.Should().Be(authorWithNewInfo.BirthDate);
         }
     }
 }

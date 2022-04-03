@@ -36,7 +36,7 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Commands.CreateAuthor
             var author = _context.Authors.FirstOrDefault(a => a.Id == 1);
 
             CreateAuthorCommand command = new CreateAuthorCommand(_context, _mapper);
-            command.Model = new CreateAuthorModel {Name = author.Name, LastName = author.LastName};
+            command.Model = new CreateAuthorModel {Name = author?.Name, LastName = author?.LastName};
             //Act & Assert
             FluentActions
                 .Invoking(() => command.Handle())

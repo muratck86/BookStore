@@ -24,7 +24,7 @@ namespace WebApi5.UnitTests.Application.AuthorOperations.Queries.GetAuthorDetail
         public void WhenNonExistingAuthorIdIsGiven_NullReferenceException_ShouldBeThrown()
         {
             //Arrange, we know that there are 3 authors in our db, and there is no author with id = 10
-            _query.AuthorId = 10;
+            _query.AuthorId = 100000;
 
             //act & assert
             FluentActions.Invoking(() => _query.Handle()).Should().Throw<NullReferenceException>();

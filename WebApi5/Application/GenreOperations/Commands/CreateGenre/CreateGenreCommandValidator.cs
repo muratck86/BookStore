@@ -6,7 +6,7 @@ namespace WebApi5.Application.GenreOperations.Commands.CreateGenre
     {
         public CreateGenreCommandValidator()
         {
-            RuleFor(command => command.Model.Name).MinimumLength(3);
+            RuleFor(command => command.Model.Name.Trim()).MinimumLength(3);
         }
     }
 }

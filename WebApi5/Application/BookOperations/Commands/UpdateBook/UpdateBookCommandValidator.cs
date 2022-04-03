@@ -8,9 +8,11 @@ namespace WebApi5.Application.BookOperations.Commands.UpdateBook
         public UpdateBookCommandValidator()
         {
             RuleFor(command => command.BookId).GreaterThan(0);
-            RuleFor(command => command.UpdateModel.PageCount).GreaterThan(0);
-            RuleFor(command => command.UpdateModel.PublishDate.Date).NotEmpty().LessThan(DateTime.Now.Date);
-            RuleFor(command => command.UpdateModel.Title).NotEmpty().MinimumLength(2);
+            RuleFor(command => command.UpdateModel.PageCount).GreaterThanOrEqualTo(0);
+            RuleFor(command => command.UpdateModel.GenreId).GreaterThanOrEqualTo(0);
+            RuleFor(command => command.UpdateModel.AuthorId).GreaterThanOrEqualTo(0);
+            RuleFor(command => command.UpdateModel.PublishDate.Date).Must(x => x == null || x <= DateTime.Now);
+            RuleFor(command => command.UpdateModel.Title).Must(x => x == null || x.Trim() == string.Empty ||x.Trim().Length >= 2);
         }
     }
 }
