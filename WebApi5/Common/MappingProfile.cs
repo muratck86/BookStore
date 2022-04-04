@@ -8,6 +8,7 @@ using WebApi5.Application.GenreOperations.Queries.GetGenreDetail;
 using WebApi5.Application.AuthorOperations.Commands.CreateAuthor;
 using WebApi5.Application.AuthorOperations.Queries.GetAuthorDetail;
 using WebApi5.Application.AuthorOperations.Queries.GetAuthors;
+using WebApi5.Application.UserOperations.Commands.CreateUser;
 
 namespace WebApi5.Common
 {
@@ -27,7 +28,6 @@ namespace WebApi5.Common
                 .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author.Name + " " + src.Author.LastName))
                 .ForMember(dest => dest.PublishDate, opt => 
                     opt.MapFrom(src => src.PublishDate.ToString("dd/MM/yyy")));
-
 
             CreateMap<Genre, GenresViewModel>();
             CreateMap<Genre, GenreDetailViewModel>();
@@ -51,7 +51,8 @@ namespace WebApi5.Common
                 .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author.Name + " " + src.Author.LastName))
                 .ForMember(dest => dest.PublishDate, opt => 
                     opt.MapFrom(src => src.PublishDate.ToString("dd/MM/yyy")));                    
-
+            
+            CreateMap<CreateUserModel, User>();
         }
     }
 }

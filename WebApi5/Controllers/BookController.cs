@@ -9,9 +9,11 @@ using AutoMapper;
 using FluentValidation;
 using WebApi5.Application.GenreOperations.Queries.GetGenreDetail;
 using WebApi5.Application.AuthorOperations.Queries.GetAuthorDetail;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi5.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[Controller]s")]
     public class BookController : ControllerBase
