@@ -35,11 +35,11 @@ namespace WebApi5.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{Id}")]
-        public IActionResult GetById(int Id)
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
         {
             GetBookDetailQuery query = new GetBookDetailQuery(_context, _mapper);
-            query.BookId = Id;
+            query.BookId = id;
 
             GetBookDetailQueryValidator validator = new GetBookDetailQueryValidator();
             validator.ValidateAndThrow(query);

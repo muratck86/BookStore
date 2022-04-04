@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WebApi5.Application.UserOperations.Commands.CreateToken;
 using WebApi5.Application.UserOperations.Commands.CreateUser;
+using WebApi5.Application.UserOperations.Commands.RefreshToken;
 using WebApi5.DbOperations;
 using WebApi5.TokenOperations.Models;
 
@@ -39,13 +40,22 @@ namespace WebApi5.Controllers
             return Ok();
         }
 
-        [HttpPost("Login")]
+        [HttpPost("connect/token")]
         public ActionResult<Token> CreateToken([FromBody] CreateTokenModel login)
         {
             CreateTokenCommand command = new CreateTokenCommand(_context, _mapper, _configuration);
             command.Model = login;
             var token = command.Handle();
             return token;
+        }
+
+        [HttpGet("refresh/token")]
+        public ActionResult<Token> RefreshToken([FromQuery] string token)
+        {
+            RefreshTokenCommand command = new RefreshTokenCommand(_context, _configuration);
+            command.RefreshToken = token;
+            var resultToken = command.Handle();
+            return resultToken;
         }
     }
 }
